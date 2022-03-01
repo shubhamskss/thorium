@@ -16,13 +16,14 @@ let getbooksinyear=async function(req,res){
 }
 
 let getparticularbooks = async function(req,res){
-    let input= req.body.input
-    let fetchbooks=await assignbookmodel.find({booknodel1:{$eq:input}})
+    let input= req.body
+    let fetchbooks=await assignbookmodel.find(input)
     res.send({"msg":fetchbooks})
 }
 let getxinrbooks =async function(req,res){
-    let data = await assignbookmodel.find({" prices[indianPrice]":{$in:[100,200,500]}})
-    res.send(data)
+    let data = await assignbookmodel.find({
+        "prices.indianPrice":{$in:["INR100","INR200","INR500"]}})
+    res.send({"msg":data})
 }
 
 
