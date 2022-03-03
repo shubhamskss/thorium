@@ -10,6 +10,10 @@ let newbook1model=new mongoose.Schema({
     ref:"newPublisher"},
 	price:Number,
 		ratings:Number,
+        isHardCover:{
+            type:Boolean,
+            default:false
+        },
 
 
 

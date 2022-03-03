@@ -20,8 +20,10 @@ let createbook=async function(req,res){
     let author = await newbook.findById(authorid)
     if(!author){return res.send("the request is invalid,no author found")}
     if(!publisherId){return res.send("this detai is required")}
-    let publisher=await newbook.findById(publisherId)
-if(!publisher){return res.send("request is invalid no publisher found")}}
+    let publisher=await newPublisher.findById(publisherId)
+if(!publisher){return res.send("request is invalid no publisher found")}
+let savebook=await newbook.create(data)
+res.send({data:savebook})}
 let allBooks=async function(req,res){
     let books=await newbook.find().populate("author publisher")
     res.send({data:books})
