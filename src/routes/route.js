@@ -1,41 +1,16 @@
 const express = require('express');
 const router = express.Router();
 // const UserModel= require("../models/userModel.js")
-const UserController= require("../controllers/userController")
-const BookController= require("../controllers/bookController")
+// const UserController= require("../controllers/userController")
+// const BookController= require("../controllers/bookController")
+let user1Controller=require("../controllers/user1controller")
+let productController=require("../controllers/productcontroller")
+let ordercontroller=require("../controllers/ordercontroller")
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
+const middleware=require("../middleware/middleware1")
 
-router.post("/createUser", UserController.createUser  )
-
-router.get("/getUsersData", UserController.getUsersData)
-
-router.post("/createBook", BookController.createBook  )
-
-router.get("/getBooksData", BookController.getBooksData)
-
-router.post("/updateBooks", BookController.updateBooks)
-router.post("/deleteBooks", BookController.deleteBooks)
-
-//MOMENT JS
-const moment = require('moment');
-router.get("/dateManipulations", function (req, res) {
-    
-    // const today = moment();
-    // let x= today.add(10, "days")
-
-    // let validOrNot= moment("29-02-1991", "DD-MM-YYYY").isValid()
-    // console.log(validOrNot)
-    
-    const dateA = moment('01-01-1900', 'DD-MM-YYYY');
-    const dateB = moment('01-01-2000', 'DD-MM-YYYY');
-
-    let x= dateB.diff(dateA, "days")
-    console.log(x)
-
-    res.send({ msg: "all good"})
-})
-
+router.post("/user1",middleware.mid1,user1Controller.saveuser)
+router.post("/product121",productController.saveproduct)
+router.post("/purchase",middleware.mid1,ordercontroller.placeorder)
+router.get("/update",ordercontroller.update1st)
 module.exports = router;
