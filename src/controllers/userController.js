@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const user8model = require("../models/user8model");
 const userModel = require("../models/userModel");
 
 const createUser = async function (abcd, xyz) {
@@ -15,7 +16,7 @@ const loginUser = async function (req, res) {
   let userName = req.body.emailId;
   let password = req.body.password;
 
-  let user = await userModel.findOne({ emailId: userName, password: password });
+  let user = await user8model.findOne({ emailId: userName, password: password });
   if (!user)
     return res.send({
       status: false,
@@ -79,8 +80,8 @@ const updateUser = async function (req, res) {
     return res.send("No such user exists");
   }
 
-  let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+  // let userData = req.body;
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId },{"isDeleted":true},{new:true});
   res.send({ status: updatedUser, data: updatedUser });
 };
 
