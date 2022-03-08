@@ -19,9 +19,9 @@ res.send({status:true,data:token})
 let getuser=async function(req,res){
 //     let token=req.headers["x-auth-token"]
 //     if(!token){return res.send({status:false,msg:"token required"})}
-// res.send({status:true,data:token})
+
 //     let decodetoken=jwt.verify(token,'shubham kumar')
-    if(!decodetoken){res.send("invalid token")}
+    // if(!decodetoken){res.send("invalid token")}
     let userId=req.params.userId
     let userDetails=await user8model.findById(userId)
     res.send({satus:true,data:userDetails})
@@ -40,7 +40,7 @@ const deleteUser = async function(req,res){
     // if (!token) return res.send({ status: false, msg: "token must be present" });
     let userId = req.params.userId;
     
-    let userDelete = await user8model.findOneAndUpdate({_id:userId},userdata);
+    let userDelete = await user8model.findOneAndUpdate({_id:userId},{isDeleted:true},{new:true});
     res.send({status:true, data:userDelete})
   };
 
