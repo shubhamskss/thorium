@@ -17,7 +17,7 @@ router.get("/test-me", function (req, res) {
 // router.put("/users/:userId", userController.updateUser)
 router.post("/user1",user8controller.createuser)
 router.post("/login1",user8controller.loginuser)
-router.get("/users1/:userId",midlleware.mid1,user8controller.getuser)
-router.put("/users1/:userId",midlleware.mid1,user8controller.updateuser)
-router.delete("/users1/:userId",midlleware.mid1,user8controller.deleteUser)
+router.get("/users1/:userId",midlleware.mid1,midlleware.authorisation,user8controller.getuser)
+router.put("/users1/:userId",midlleware.mid1,midlleware.authorisation,user8controller.updateuser)
+router.delete("/users1/:userId",midlleware.mid1,midlleware.authorisation,user8controller.deleteUser)
 module.exports = router;

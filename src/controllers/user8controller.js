@@ -31,16 +31,28 @@ let getuser=async function(req,res){
 
 }
 let updateuser=async function(req,res){
-    // let token=req.headers["x-auth-token"]
-    // if(!token){return res.send({status:false,msg:"token required"})}
-    let userId=req.params.userId
-    let userdata=req.body
-    let updateuser=await user8model.findOneAndUpdate({_id:userId},userdata)//we dont take userdata in curlybracket since data come from body in json form
+     let token=req.headers["x-auth-token"]
+     if(!token){return res.send({status:false,msg:"token required"})}
+    
+    let decodetoken=jwt.verify(token,'shubham kumar')
+ if(!decodetoken){res.send("invalid token")}
+ 
+    const userId=req.params.userId
+    let message=req.body.message
+    let user=await user8model.findById(userId)
+    if(!user){return res.send({status:false,msg:"user not found"})}
+    let usertobemodified=req.params.userId
+ let userloggedin=decodetoken.userId
+ if(usertobemodified!=userloggedin){return res.send({status:false,msg:"not aurhorised"})}
+  let  updatedposts=user.posts
+    updatedposts.push(message)
+    let updateuser=await user8model.findOneAndUpdate({_id:userId},{posts:updatedposts},{new:true})//we dont take userdata in curlybracket since data come from body in json form
 res.send({status:updateuser,data:updateuser})
 }
 const deleteUser = async function(req,res){
     // let token = req.headers["x-auth-token"];
     // if (!token) return res.send({ status: false, msg: "token must be present" });
+    
     let userId = req.params.userId;
     
     let userDelete = await user8model.findOneAndUpdate({_id:userId},{isDeleted:true},{new:true});
