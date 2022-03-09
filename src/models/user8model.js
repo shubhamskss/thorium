@@ -12,5 +12,7 @@ let user8model=new mongoose.Schema({
 	isDeleted:{type:Boolean,
         default:false}, //default value is false 
     age:Number,
+    posts:{type:[],
+    default:[]},
 },{timestamps:true})
 module.exports=mongoose.model("user8",user8model)

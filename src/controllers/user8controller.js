@@ -17,11 +17,14 @@ res.send({status:true,data:token})
 
 }
 let getuser=async function(req,res){
-//     let token=req.headers["x-auth-token"]
-//     if(!token){return res.send({status:false,msg:"token required"})}
+    let token=req.headers["x-auth-token"]
+   if(!token){return res.send({status:false,msg:"token required"})}
 
-//     let decodetoken=jwt.verify(token,'shubham kumar')
-    // if(!decodetoken){res.send("invalid token")}
+    let decodetoken=jwt.verify(token,'shubham kumar')
+ if(!decodetoken){res.send("invalid token")}
+    let usertobeModified=req.params.userId
+    let userloggedin=decodetoken.userId
+    if(usertobeModified!=userloggedin){return res.send({status:false,msg:"not authorised"})}
     let userId=req.params.userId
     let userDetails=await user8model.findById(userId)
     res.send({satus:true,data:userDetails})
